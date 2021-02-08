@@ -191,7 +191,7 @@ module OmniAuth
         return options_call if on_auth_path? && options_request?
         return request_call if on_request_path? && OmniAuth.config.allowed_request_methods.include?(request.request_method.downcase.to_sym)
         return callback_call if on_callback_path?
-        return other_phase if respond_to?(:other_phase)
+        return other_phase if on_auth_path? && respond_to?(:other_phase)
       rescue StandardError => e
         return fail!(e.message, e)
       end
